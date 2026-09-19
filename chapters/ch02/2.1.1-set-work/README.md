@@ -37,7 +37,7 @@ SET 和 SWE 是紧密合作的伙伴，工作会有重叠。SWE 不只是交付�
 | SET 编写中大型测试 | `order-app` 的集成测试使用真实业务库与 fake 服务 |
 | 统一工具和质量门禁 | Maven 统一运行 Checkstyle、SpotBugs、单元和集成测试 |
 
-## 计划中的模块
+## 模块关系
 
 ```text
 order-app
@@ -47,5 +47,37 @@ order-app
     └── service-contracts
 ```
 
-完整的构建和运行命令会随各阶段实现补充到本文档。实际开发轨迹记录在 [DEVELOPMENT_PROCESS.md](DEVELOPMENT_PROCESS.md)。
+## 构建与运行
 
+环境要求：JDK 21、Maven 3.9 或更高版本。
+
+在本目录执行完整质量验证：
+
+```shell
+mvn clean verify
+```
+
+只验证订单服务及其依赖：
+
+```shell
+mvn -pl order-service -am test
+```
+
+运行打包后的命令行应用：
+
+```shell
+java -jar order-app/target/order-demo.jar
+```
+
+一次成功下单会输出 `status=SUCCESS`、非空确认号、`remainingStock=3` 和 `paymentAttempts=1`。
+
+## 按开发过程学习
+
+不要只阅读最终代码。按提交顺序观察系统如何增长：
+
+```shell
+git log --reverse --oneline
+git show <提交哈希>
+```
+
+建议在每个提交上执行当时记录的验证命令，比较 SWE 的基础测试、SET 补充的边界测试和跨模块测试分别发现什么问题。完整轨迹与每阶段结果见 [DEVELOPMENT_PROCESS.md](DEVELOPMENT_PROCESS.md)。

@@ -20,7 +20,7 @@
 | 4 | SET | 补充边界测试和可复用 fake | 单元测试 | 已完成 |
 | 5 | SET | 验证多个真实模块的协作 | 集成测试 | 已完成 |
 | 6 | 构建工程角色 | 建立统一静态检查与测试入口 | `mvn verify` | 已完成 |
-| 7 | 团队 | 打包、运行并完成章节验收 | 全量构建和命令行运行 | 待执行 |
+| 7 | 团队 | 打包、运行并完成章节验收 | 全量构建和命令行运行 | 已完成 |
 
 ## 阶段记录
 
@@ -61,7 +61,7 @@
 - 提交：`测试：添加订单系统跨模块集成测试`
 - 测试边界：使用真实 `OrderService`、内存库存 fake 和支付 fake，不检查实现内部的方法调用细节。
 - 集成场景：成功下单会扣减库存并记录支付；库存不足不会支付；支付拒绝会恢复库存。
-- 验证命令：`mvn -pl order-app -am test-compile failsafe:integration-test failsafe:verify`
+- 验证命令：`mvn -pl order-app -am test-compile org.apache.maven.plugins:maven-failsafe-plugin:3.5.3:integration-test org.apache.maven.plugins:maven-failsafe-plugin:3.5.3:verify`
 - 结果：3 个中型集成测试通过，同时之前的 9 个小型测试继续作为回归测试运行。
 
 ### 阶段 6：统一工程质量入口
@@ -72,4 +72,15 @@
 - 验证命令：`mvn verify`
 - 结果：Google Java 风格检查和 SpotBugs 无告警，9 个小型测试与 3 个中型测试全部通过。
 
-其余阶段将在实际实现和验证后补充。
+### 阶段 7：组装产品并验收
+
+- 提交：`应用：添加命令行演示并完成章节验收`
+- 团队交付：命令行应用将独立构建的订单库、库存 fake 和支付 fake 组装成可运行产品。
+- 打包方式：Maven Shade Plugin 生成包含运行时依赖和主类清单的 `order-demo.jar`。
+- 验证命令：`mvn clean verify`
+- 运行命令：`java -jar order-app/target/order-demo.jar`
+- 结果：12 个测试全部通过；程序输出成功状态、非空确认号、剩余库存 3 和 1 次支付尝试。
+
+## 最终回顾
+
+这个过程刻意保留了构建目标逐步增长的轨迹：先有公共接口，再有经过小型测试的服务库，然后由 SET 增加测试工具和中型测试，最后才形成统一质量门禁和可运行产品。任何后续修改都必须重新运行已有测试，因此这些测试已经成为产品的一部分，而不是一次性的验收脚本。
