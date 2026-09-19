@@ -18,6 +18,7 @@
         <protobuf.plugin.version>0.6.1</protobuf.plugin.version>
         <surefire.version>3.5.3</surefire.version>
         <failsafe.version>3.5.3</failsafe.version>
+        <jacoco.version>0.8.13</jacoco.version>
     </properties>
 
     <dependencyManagement>
@@ -83,6 +84,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire.version}</version>
                 <configuration>
+                    <argLine>@{jacocoArgLine}</argLine>
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
@@ -93,6 +95,7 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${failsafe.version}</version>
                 <configuration>
+                    <argLine>@{jacocoArgLine}</argLine>
                     <includes>
                         <include>**/*IT.java</include>
                     </includes>
@@ -103,6 +106,33 @@
                             <goal>integration-test</goal>
                             <goal>verify</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <id>prepare-coverage-agent</id>
+                        <configuration>
+                            <propertyName>jacocoArgLine</propertyName>
+                            <destFile>${java.io.tmpdir}/google-testing-${project.artifactId}.exec</destFile>
+                        </configuration>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>generate-coverage-report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <dataFile>${java.io.tmpdir}/google-testing-${project.artifactId}.exec</dataFile>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

@@ -14,6 +14,7 @@ python tools/test-platform/run_tests.py --all --random-order --seed 20260919 --i
 ```
 
 报告在 `target/test-platform-reports/`，包括 JSON、Markdown、JUnit XML 和每个目标的日志。
+Java 模块的 JaCoCo HTML 覆盖率报告在各自的 `target/site/jacoco/`，PR/main 工作流会一并上传。
 
 ## 测试规模
 

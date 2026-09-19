@@ -37,4 +37,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: main-test-platform-reports
-          path: target/test-platform-reports/
+          path: |
+            target/test-platform-reports/
+            chapters/**/target/site/jacoco/
