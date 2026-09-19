@@ -17,3 +17,5 @@ python tools/test-platform/run_tests.py --all --random-order --isolation
 - `*.log`：每个目标的 Maven 标准输出和错误输出。
 
 测试规模是教学约定：`small` 不使用网络和持久化；`medium` 组合多个模块和内存 fake；`large` 验证完整 HTTP 或文件持久化。受影响测试无法安全判断时会降级为全量运行。
+
+详细路径映射见 [IMPACT_RULES.md](IMPACT_RULES.md)。
