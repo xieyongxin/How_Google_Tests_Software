@@ -228,9 +228,9 @@ def write_reports(root: Path, results: list[TargetResult], selection_reason: str
     ET.ElementTree(suite).write(output_dir / "junit.xml", encoding="utf-8", xml_declaration=True)
 
 
-def parse_arguments() -> argparse.Namespace:
+def parse_arguments(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="运行教学项目的分层测试目标")
-    selection = parser.add_mutually_exclusive_group(required=True)
+    selection = parser.add_mutually_exclusive_group(required=False)
     selection.add_argument("--size", choices=["small", "medium", "large"], help="只运行一种规模")
     selection.add_argument("--all", action="store_true", help="运行全部规模")
     selection.add_argument("--affected", action="store_true", help="根据 git diff 运行受影响测试")
@@ -241,7 +241,7 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument("--seed", type=int, help="随机顺序种子")
     parser.add_argument("--isolation", action="store_true", help="执行固定资源静态检查和临时目录隔离")
     parser.add_argument("--dry-run", action="store_true", help="只打印目标，不执行 Maven")
-    return parser.parse_args()
+    return parser.parse_args(argv)
 
 
 def main() -> int:
@@ -258,6 +258,8 @@ def main() -> int:
     elif arguments.affected:
         changed_files = git_changed_files(root, arguments.base)
         targets, selection_reason = choose_affected_targets(targets, changed_files)
+    else:
+        selection_reason = "未指定规模，默认运行全量测试"
 
     static_violations = run_isolation_scan(root, targets) if arguments.isolation else {}
     if static_violations:

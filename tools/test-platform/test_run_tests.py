@@ -48,6 +48,12 @@ class TestReports(unittest.TestCase):
 
             self.assertIn("Sample.java", violations)
 
+    def test_isolation_command_can_use_all_targets_by_default(self):
+        arguments = run_tests.parse_arguments(["--isolation", "--dry-run"])
+
+        self.assertTrue(arguments.isolation)
+        self.assertTrue(arguments.dry_run)
+
 
 if __name__ == "__main__":
     unittest.main()
