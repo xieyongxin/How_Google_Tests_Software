@@ -70,7 +70,13 @@ def git_changed_files(root: Path, base: str) -> list[str]:
             collected.extend(line.strip().replace("\\", "/") for line in completed.stdout.splitlines() if line.strip())
             if collected:
                 return sorted(set(collected))
-    raise RuntimeError(f"无法计算相对于 {base} 的变更：{completed.stderr.strip()}")
+        else:
+            last_error = completed.stderr.strip()
+    if collected:
+        return sorted(set(collected))
+    if 'last_error' in locals() and last_error:
+        raise RuntimeError(f"无法计算相对于 {base} 的变更：{last_error}")
+    return []
 
 
 def choose_affected_targets(targets: list[dict], changed_files: list[str]) -> tuple[list[dict], str]:

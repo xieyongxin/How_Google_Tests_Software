@@ -36,6 +36,17 @@ class TestManifestSelection(unittest.TestCase):
 
             self.assertEqual(3, len(run_tests.load_manifest(path)))
 
+    def test_empty_change_set_is_safe(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            import subprocess
+            subprocess.run(["git", "init"], cwd=root, check=True, capture_output=True)
+            (root / "README.md").write_text("empty diff", encoding="utf-8")
+            subprocess.run(["git", "add", "README.md"], cwd=root, check=True, capture_output=True)
+            subprocess.run(["git", "-c", "user.email=test@example.com", "-c", "user.name=Test", "commit", "-m", "init"], cwd=root, check=True, capture_output=True)
+
+            self.assertEqual([], run_tests.git_changed_files(root, "HEAD"))
+
 
 class TestReports(unittest.TestCase):
 

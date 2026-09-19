@@ -21,7 +21,7 @@
 
 ## 实际运行记录
 
-- `python -m unittest discover -s tools/test-platform -p 'test_*.py'`：5 项通过。
+- `python -m unittest discover -s tools/test-platform -p 'test_*.py'`：6 项通过。
 - small：14/14 通过，耗时约 233 秒。
 - medium：4/4 通过，耗时约 237 秒。
 - large：2/2 通过，耗时约 43 秒。

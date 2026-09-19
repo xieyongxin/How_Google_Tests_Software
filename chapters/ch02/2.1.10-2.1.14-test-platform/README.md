@@ -25,7 +25,7 @@ python tools/test-platform/run_tests.py --all --random-order --seed 20260919 --i
 
 当前清单是 14/4/2，用于练习调度和速度分析，不代表所有 Google 项目的固定比例。
 
-执行器实跑结果：small 14/14、medium 4/4、large 2/2 全部通过；另有 5 项 Python 执行器自测通过。
+执行器实跑结果：small 14/14、medium 4/4、large 2/2 全部通过；另有 6 项 Python 执行器自测通过。
 
 ## 提交队列和 CI 对应
 
