@@ -1,0 +1,23 @@
+syntax = "proto2";
+
+package addurl;
+
+option java_package = "io.github.xieyongxin.testing.addurl.protocol";
+option java_outer_classname = "AddUrlProto";
+option java_multiple_files = false;
+option java_generic_services = true;
+
+message AddUrlRequest {
+  required string url = 1;
+  optional string comment = 2;
+}
+
+message AddUrlReply {
+  optional int32 error_code = 1;
+  optional string error_details = 2;
+}
+
+service AddUrlService {
+  rpc AddUrl(AddUrlRequest) returns (AddUrlReply);
+}
+
