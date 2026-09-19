@@ -17,7 +17,7 @@
 | 2 | Tech Lead/SWE | AddUrl 原型设计、团队结构和路线图 | 设计评审 | 已完成 |
 | 3 | SET | 可测试性评审和自动化计划 | 评审检查脚本 | 已完成 |
 | 4 | SWE | 可丢弃的 URL 原型和最小测试 | `mvn test`、本地运行 | 已完成 |
-| 5 | 团队 | CL 反馈、修改记录和绿色提交条件 | `mvn clean verify` | 待执行 |
+| 5 | 团队 | CL 反馈、修改记录和绿色提交条件 | `mvn clean verify` | 已完成 |
 
 ## 项目阶段边界
 
@@ -50,5 +50,13 @@
 - 设计约束：使用构造器注入，失败输入在写入前返回，重复 URL 不增加索引项。
 - 验证命令：`mvn clean test`、`python scripts/check_design_document.py`、`java -cp target/classes io.github.xieyongxin.testing.foundations.AddUrlPrototype`
 - 结果：5 个测试通过，原型输出 `accepted=true` 且索引命中。
+
+### 阶段 5：CL 审查与绿色提交
+
+- 提交：`流程：模拟CL代码审查与绿色提交要求`
+- SET 复审：确认 URL 规则、失败不污染索引、依赖可替换和原型边界均有代码或文档回应。
+- 构建门禁：所有测试、设计文档检查和静态构建步骤必须通过；正式网络服务另开实验二的 CL。
+- 验证命令：`mvn clean verify`、`python scripts/check_design_document.py`。
+- 结果：概念阶段实验完成，具备进入正式立项和协议设计的条件。
 
 其余阶段将在实现和验证后补充。
