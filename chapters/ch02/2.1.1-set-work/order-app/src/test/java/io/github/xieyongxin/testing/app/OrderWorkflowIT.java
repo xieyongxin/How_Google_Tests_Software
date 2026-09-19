@@ -13,8 +13,10 @@ import io.github.xieyongxin.testing.order.OrderStatus;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag("medium")
 class OrderWorkflowIT {
 
     private static final OrderRequest REQUEST =
@@ -62,4 +64,3 @@ class OrderWorkflowIT {
         assertEquals(1, payment.attempts().size());
     }
 }
-

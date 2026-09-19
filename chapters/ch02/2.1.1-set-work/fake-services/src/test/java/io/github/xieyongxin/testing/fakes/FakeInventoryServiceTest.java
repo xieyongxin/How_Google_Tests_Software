@@ -5,8 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Map;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag("small")
 class FakeInventoryServiceTest {
 
     @Test
@@ -28,4 +30,3 @@ class FakeInventoryServiceTest {
         assertEquals(1, inventory.stockOf("book-1"));
     }
 }
-

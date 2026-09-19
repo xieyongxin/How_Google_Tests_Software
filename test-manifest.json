@@ -1,0 +1,146 @@
+{
+  "version": 1,
+  "description": "教学用测试清单：用统一目标模拟测试规模、调度和受影响测试选择。",
+  "targets": [
+    {
+      "id": "order-small-success",
+      "size": "small",
+      "module": "order-service",
+      "command": "mvn -f chapters/ch02/2.1.1-set-work/pom.xml -pl order-service -am -Dtest=OrderServiceTest#placesOrderWhenInventoryAndPaymentSucceed -Dsurefire.failIfNoSpecifiedTests=false test",
+      "inputs": ["chapters/ch02/2.1.1-set-work/order-service"]
+    },
+    {
+      "id": "order-small-stock",
+      "size": "small",
+      "module": "order-service",
+      "command": "mvn -f chapters/ch02/2.1.1-set-work/pom.xml -pl order-service -am -Dtest=OrderServiceTest#stopsBeforePaymentWhenInventoryIsInsufficient -Dsurefire.failIfNoSpecifiedTests=false test",
+      "inputs": ["chapters/ch02/2.1.1-set-work/order-service"]
+    },
+    {
+      "id": "order-small-validation",
+      "size": "small",
+      "module": "order-service",
+      "command": "mvn -f chapters/ch02/2.1.1-set-work/pom.xml -pl order-service -am -Dtest=OrderServiceTest#rejectsNullRequestWithoutCallingDependencies,OrderServiceTest#rejectsNonpositiveQuantityWithoutCallingDependencies,OrderServiceTest#rejectsNonpositivePriceWithoutCallingDependencies -Dsurefire.failIfNoSpecifiedTests=false test",
+      "inputs": ["chapters/ch02/2.1.1-set-work/order-service"]
+    },
+    {
+      "id": "fake-small-inventory",
+      "size": "small",
+      "module": "fake-services",
+      "command": "mvn -f chapters/ch02/2.1.1-set-work/pom.xml -pl fake-services -am -Dtest=FakeInventoryServiceTest -Dsurefire.failIfNoSpecifiedTests=false test",
+      "inputs": ["chapters/ch02/2.1.1-set-work/fake-services"]
+    },
+    {
+      "id": "fake-small-payment",
+      "size": "small",
+      "module": "fake-services",
+      "command": "mvn -f chapters/ch02/2.1.1-set-work/pom.xml -pl fake-services -am -Dtest=FakePaymentServiceTest -Dsurefire.failIfNoSpecifiedTests=false test",
+      "inputs": ["chapters/ch02/2.1.1-set-work/fake-services"]
+    },
+    {
+      "id": "prototype-small-url-validation",
+      "size": "small",
+      "module": "set-foundations",
+      "command": "mvn -f chapters/ch02/2.1.2-2.1.8-set-foundations/pom.xml -Dtest=AddUrlPrototypeTest test",
+      "inputs": ["chapters/ch02/2.1.2-2.1.8-set-foundations"]
+    },
+    {
+      "id": "addurl-small-frontend",
+      "size": "small",
+      "module": "addurl-frontend",
+      "command": "mvn -f chapters/ch02/2.1.9-addurl-workflow/pom.xml -Dtest=AddUrlFrontendTest test",
+      "inputs": ["chapters/ch02/2.1.9-addurl-workflow/src/main/java/io/github/xieyongxin/testing/addurl/frontend"]
+    },
+    {
+      "id": "addurl-small-protocol-definition",
+      "size": "small",
+      "module": "addurl-protocol",
+      "command": "mvn -f chapters/ch02/2.1.9-addurl-workflow/pom.xml -Dtest=ProtocolDefinitionTest test",
+      "inputs": ["chapters/ch02/2.1.9-addurl-workflow/src/main/proto"]
+    },
+    {
+      "id": "addurl-small-protocol-compatibility",
+      "size": "small",
+      "module": "addurl-protocol",
+      "command": "mvn -f chapters/ch02/2.1.9-addurl-workflow/pom.xml -Dtest=ProtocolCompatibilityTest test",
+      "inputs": ["chapters/ch02/2.1.9-addurl-workflow/src/main/proto"]
+    },
+    {
+      "id": "addurl-small-service",
+      "size": "small",
+      "module": "addurl-service",
+      "command": "mvn -f chapters/ch02/2.1.9-addurl-workflow/pom.xml -Dtest=DefaultAddUrlServiceTest,BackendFailureTest test",
+      "inputs": ["chapters/ch02/2.1.9-addurl-workflow/src/main/java/io/github/xieyongxin/testing/addurl/service"]
+    },
+    {
+      "id": "addurl-small-file-store",
+      "size": "small",
+      "module": "addurl-service",
+      "command": "mvn -f chapters/ch02/2.1.9-addurl-workflow/pom.xml -Dtest=FileIndexStoreTest test",
+      "inputs": ["chapters/ch02/2.1.9-addurl-workflow/src/main/java/io/github/xieyongxin/testing/addurl/service/FileIndexStore.java"]
+    },
+    {
+      "id": "addurl-small-backend-failure",
+      "size": "small",
+      "module": "addurl-service",
+      "command": "mvn -f chapters/ch02/2.1.9-addurl-workflow/pom.xml -Dtest=BackendFailureTest test",
+      "inputs": ["chapters/ch02/2.1.9-addurl-workflow/src/test/java/io/github/xieyongxin/testing/addurl/service/BackendFailureTest.java"]
+    },
+    {
+      "id": "addurl-small-frontend-errors",
+      "size": "small",
+      "module": "addurl-frontend",
+      "command": "mvn -f chapters/ch02/2.1.9-addurl-workflow/pom.xml -Dtest=AddUrlFrontendTest#missingUrlIsRejectedWithoutCallingBackend,AddUrlFrontendTest#mapsBackendExceptionToServerError,AddUrlFrontendTest#mapsSlowBackendToGatewayTimeout test",
+      "inputs": ["chapters/ch02/2.1.9-addurl-workflow/src/test/java/io/github/xieyongxin/testing/addurl/frontend/AddUrlFrontendTest.java"]
+    },
+    {
+      "id": "addurl-small-frontend-decoding",
+      "size": "small",
+      "module": "addurl-frontend",
+      "command": "mvn -f chapters/ch02/2.1.9-addurl-workflow/pom.xml -Dtest=AddUrlFrontendTest#parsesUrlAndDecodedComment,AddUrlFrontendTest#rejectsMalformedQueryEncoding test",
+      "inputs": ["chapters/ch02/2.1.9-addurl-workflow/src/test/java/io/github/xieyongxin/testing/addurl/frontend/AddUrlFrontendTest.java"]
+    },
+    {
+      "id": "order-medium-workflow",
+      "size": "medium",
+      "module": "order-app",
+      "command": "mvn -f chapters/ch02/2.1.1-set-work/pom.xml -pl order-app -am -Dit.test=OrderWorkflowIT#completesOrderAcrossInventoryAndPaymentServices -Dfailsafe.failIfNoSpecifiedTests=false verify",
+      "inputs": ["chapters/ch02/2.1.1-set-work/order-app", "chapters/ch02/2.1.1-set-work/order-service"]
+    },
+    {
+      "id": "order-medium-failure-path",
+      "size": "medium",
+      "module": "order-app",
+      "command": "mvn -f chapters/ch02/2.1.1-set-work/pom.xml -pl order-app -am -Dit.test=OrderWorkflowIT#restoresInventoryWhenPaymentServiceDeclinesCharge -Dfailsafe.failIfNoSpecifiedTests=false verify",
+      "inputs": ["chapters/ch02/2.1.1-set-work/order-app", "chapters/ch02/2.1.1-set-work/order-service"]
+    },
+    {
+      "id": "addurl-medium-success",
+      "size": "medium",
+      "module": "addurl-workflow",
+      "command": "mvn -f chapters/ch02/2.1.9-addurl-workflow/pom.xml -Dit.test=AddUrlWorkflowIT#frontendServiceAndMemoryIndexCollaborate -Dfailsafe.failIfNoSpecifiedTests=false verify",
+      "inputs": ["chapters/ch02/2.1.9-addurl-workflow/src/main/java"]
+    },
+    {
+      "id": "addurl-medium-validation",
+      "size": "medium",
+      "module": "addurl-workflow",
+      "command": "mvn -f chapters/ch02/2.1.9-addurl-workflow/pom.xml -Dit.test=AddUrlWorkflowIT#invalidUrlStopsBeforeIndexWrite -Dfailsafe.failIfNoSpecifiedTests=false verify",
+      "inputs": ["chapters/ch02/2.1.9-addurl-workflow/src/main/java"]
+    },
+    {
+      "id": "addurl-large-http",
+      "size": "large",
+      "module": "addurl-workflow",
+      "command": "mvn -f chapters/ch02/2.1.9-addurl-workflow/pom.xml -Dit.test=AddUrlHttpIT -Dfailsafe.failIfNoSpecifiedTests=false verify",
+      "inputs": ["chapters/ch02/2.1.9-addurl-workflow/src/main/java/io/github/xieyongxin/testing/addurl/app"]
+    },
+    {
+      "id": "addurl-large-persistence",
+      "size": "large",
+      "module": "addurl-workflow",
+      "command": "mvn -f chapters/ch02/2.1.9-addurl-workflow/pom.xml -Dit.test=FileIndexStoreIT -Dfailsafe.failIfNoSpecifiedTests=false verify",
+      "inputs": ["chapters/ch02/2.1.9-addurl-workflow/src/main/java/io/github/xieyongxin/testing/addurl/service/FileIndexStore.java"]
+    }
+  ]
+}

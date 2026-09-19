@@ -11,10 +11,12 @@ import io.github.xieyongxin.testing.contracts.InventoryService;
 import io.github.xieyongxin.testing.contracts.PaymentService;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+@Tag("small")
 class OrderServiceTest {
 
     private static final OrderRequest REQUEST =
