@@ -47,7 +47,9 @@ curl "http://localhost:8080/addurl?url=https%3A%2F%2Fwww.example.com&comment=Dem
 - `src/main/java/.../service`：服务接口、校验、索引存储和前端 HTTP 适配器。
 - `src/test/java/.../AddUrlFrontendTest.java`：小型前端测试。
 - `src/test/java/.../*IT.java`：中型、大型工作流测试。
+- `src/main/java/.../app`：JDK 内置 HTTP Server 和命令行入口。
 - [开发过程](DEVELOPMENT_PROCESS.md)：按 SWE/SET 角色记录中文提交。
 - [测试计划](TEST_PLAN.md)：记录 Small/Medium/Large 测试边界。
 - [书本映射](SOURCE_MAPPING.md)：把章节概念映射到代码和提交。
 
+本实验当前验证结果：14 个小型测试、2 个中型测试和 3 个大型测试全部通过；`java -jar target/addurl-workflow.jar` 会启动随机端口服务、提交一次 URL 并输出 `HTTP 200`。测试数量用于演示调度，不代表 Google 项目的固定比例。
