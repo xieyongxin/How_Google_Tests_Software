@@ -16,7 +16,7 @@
 | 1 | 团队 | 章节总结、角色约定和设计文档骨架 | 文档检查 | 已完成 |
 | 2 | Tech Lead/SWE | AddUrl 原型设计、团队结构和路线图 | 设计评审 | 已完成 |
 | 3 | SET | 可测试性评审和自动化计划 | 评审检查脚本 | 已完成 |
-| 4 | SWE | 可丢弃的 URL 原型和最小测试 | `mvn test`、本地运行 | 待执行 |
+| 4 | SWE | 可丢弃的 URL 原型和最小测试 | `mvn test`、本地运行 | 已完成 |
 | 5 | 团队 | CL 反馈、修改记录和绿色提交条件 | `mvn clean verify` | 待执行 |
 
 ## 项目阶段边界
@@ -42,5 +42,13 @@
 - 自动化策略：先覆盖高风险接口和快速反馈路径，再增加少量中型、大型测试。
 - 验证：`python scripts/check_design_document.py`
 - 结果：设计文档必需部分齐全，所有暂不实现的建议都有后续阶段归属。
+
+### 阶段 4：SWE 完成概念原型
+
+- 提交：`原型：完成AddUrl概念验证与最小测试`
+- SWE 交付：`UrlValidator`、`InMemoryIndex`、`AddUrlPrototype` 和 5 个小型测试。
+- 设计约束：使用构造器注入，失败输入在写入前返回，重复 URL 不增加索引项。
+- 验证命令：`mvn clean test`、`python scripts/check_design_document.py`、`java -cp target/classes io.github.xieyongxin.testing.foundations.AddUrlPrototype`
+- 结果：5 个测试通过，原型输出 `accepted=true` 且索引命中。
 
 其余阶段将在实现和验证后补充。
