@@ -11,6 +11,10 @@
 | 2.1.9 | SET 工作流程实例：AddUrl | [AddUrl 完整工作流](chapters/ch02/2.1.9-addurl-workflow/README.md) |
 | 2.1.10–2.1.14 | 测试执行、测试规模与运行要求 | [测试执行平台](chapters/ch02/2.1.10-2.1.14-test-platform/README.md) |
 
+测试平台入口：`test-manifest.json` 定义目标，`tools/test-platform/run_tests.py` 提供规模调度、受影响测试、随机顺序、隔离检查和 JSON/Markdown/JUnit 报告。它是对书中 Mondrian、TAP、Unit Test Dashboard 和提交队列的本地教学模拟。
+
+当前后续章节实践已推送到 `main`：实验二 AddUrl 的最后提交为 `dac78d4`，实验三测试平台按 `git log --reverse` 可依次复盘清单、执行器、隔离、影响分析和 CI。
+
 ## 阅读方式
 
 1. 阅读对应目录的 `README.md`，理解章节要点与 Demo 的映射。

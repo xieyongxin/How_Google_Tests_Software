@@ -6,3 +6,4 @@ target/
 .settings/
 .vscode/
 hs_err_pid*
+__pycache__/
