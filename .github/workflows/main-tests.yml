@@ -1,0 +1,40 @@
+name: 主干全量测试
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '17 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  all-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: 设置 JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: 设置 Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: 测试执行器自测
+        run: python -m unittest discover -s tools/test-platform -p 'test_*.py'
+      - name: 运行全量测试、随机顺序和隔离检查
+        run: python tools/test-platform/run_tests.py --all --random-order --seed 20260919 --isolation
+      - name: 上传完整测试报告
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: main-test-platform-reports
+          path: target/test-platform-reports/
